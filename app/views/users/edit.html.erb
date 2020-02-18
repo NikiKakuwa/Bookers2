@@ -1,0 +1,16 @@
+<h2>User Info</h2>
+<%= form_for(@user) do |f| %>
+    <div class="form-group has-icon">
+        Name
+        <%= f.text_field :name, autofocus: true %>
+
+        Image
+        <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, class: fallback: "no_image.jpg"%>
+        <label class="control-label sr-only" for="inputEmail">ProfileImage</label>
+        <%= f.attachment_field :profile_image %>
+
+        Introduction
+        <%= f.text_field :Introduction %>
+    </div>
+    <%= f.submit "Update User", class:"btn btn-lg btn-block btn-base-1 mt-20" %>
+<% end %>
