@@ -1,18 +1,19 @@
 class UsersController < ApplicationController
   def show
-  	@user = User.find(params[:id])
+  	@a_user = User.find(params[:id])
   	@book = Book.new
-  	@mybooks = @user.books.page(params[:page]).reverse_order
+  	@mybooks = @a_user.books.page(params[:page]).reverse_order
   end
 
   def edit
-    @user = User.find(params[:id])
+    @a_user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
-    @user.update(user_params)
-    redirect_to user_path(@user.id)
+    @a_user = User.find(params[:id])
+    @a_user.update(user_params)
+    @user = User.find(current_user.id)
+    redirect_to user_path(@user)
   end
   private
 def user_params

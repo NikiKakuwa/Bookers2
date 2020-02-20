@@ -1,12 +1,12 @@
 <%= flash[:success] %>
-<%= form_for(@book) do |f| %>
-    <% if @book.errors.any? %>
+<%= form_for(@a_book) do |f| %>
+    <% if @a_book.errors.any? %>
     <h3>
-    <% @book.errors.count %>errors prohibited this book from being saved:
+    <% @a_book.errors.count %>errors prohibited this book from being saved:
     </h3>
 
 	<ul>
-	<% @book.errors.full_messages.each do |message| %>
+	<% @a_book.errors.full_messages.each do |message| %>
 	<li><%= message %></li>
 	<% end %>
     </ul>
@@ -21,3 +21,8 @@
     <%= f.submit 'Upate Book' %>
 
 <% end %>
+
+
+<%= link_to "Show", book_path(@a_book) %>
+
+<%= link_to "Back",  books_path %>

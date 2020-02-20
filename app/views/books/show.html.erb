@@ -2,14 +2,14 @@
 
 <p>
 	<strong>Title:</strong>
-	<%= @book.title %>
+	<%= @a_book.title %>
 </p>
 
 <p>
 	<strong>Body:</strong>
-	<%= @book.body %>
+	<%= @a_book.body %>
 </p>
 
-<%= link_to "Edit", edit_book_path(@book) %>
+<%= link_to "Edit", edit_book_path(@a_book) %>
 
-<%= link_to "Destroy", book_path(book), method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to "Destroy", book_path(@a_book), method: :delete, data: { confirm: 'Are you sure?' } %>
