@@ -3,9 +3,9 @@ class BooksController < ApplicationController
   end
 
   def index
+      @user = current_user
       @book = Book.new
       @books = Book.all
-      @user = current_user
     end
 
   def show
@@ -21,13 +21,15 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
-  #if
-    @book.save
-    redirect_to book_path(@book)
-  #else
-  #  @books = Book.all
-  #  render action: :index
-  #end
+    if
+      @book.save
+      redirect_to book_path(@book)
+      flash[:success] = 'successfully posted!!!'
+    else
+      @books = Book.all
+      @user = current_user #viewだけを表示するのがrenderだから、改めて@userを定義しなければいけない。redirect_toはindexのURLを読み込むからindexで定義されていれば@userをここで改めて定義する必要はない。redirect_toとrenderの違いをちゃんと理解している必要がある。
+      render action: :index
+    end
   end
 
   def edit
@@ -37,14 +39,14 @@ class BooksController < ApplicationController
   def update
     a_book = Book.find(params[:id])
     a_book.user_id = current_user.id
-    #if
-    a_book.update(book_params)
-    redirect_to book_path(a_book)
-    #flash[:success] = 'successfully edited!!!'
-    #else
-    #@book = book
-    #render action: :edit
-    #end
+    if
+      a_book.update(book_params)
+      redirect_to book_path(a_book)
+      flash[:success] = 'successfully edited!!!'
+    else
+      @a_book = a_book
+      render action: :edit
+    end
   end
 
   def destroy

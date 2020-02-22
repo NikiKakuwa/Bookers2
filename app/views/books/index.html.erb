@@ -7,7 +7,7 @@
     <h3 class="profile-name"><%= @user.name %></h3>
     <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "" %>
 　　 <% if @user.id == current_user.id %>
-        <p><%= link_to "プロフィール編集", edit_user_path(@user), class: "pull-right" %></p>
+        <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
     <% end %>
 </div>
 
@@ -44,7 +44,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% @books.each do |book| %> <%# ここに書いてあるのはhasmanyのbooks。メソッドではない %>
+		<% @books.each do |book| %> <%# ここに書いてあるのはhasmanyのbooksであって、メソッドではない %>
 		<tr>
 			<td><%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "" %></td>
 			<td><%= link_to book.title, book_path(book) %></td>

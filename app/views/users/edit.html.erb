@@ -1,5 +1,16 @@
 <h2>User Info</h2>
 <%= form_for(@a_user) do |f| %>
+<% if @a_user.errors.any? %>
+    <h3>
+    <% @a_user.errors.count %>errors prohibited this book from being saved:
+    </h3>
+
+    <ul>
+    <% @a_user.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+    </ul>
+    <% end %>
     <div class="form-group has-icon">
         Name
         <%= f.text_field :name, autofocus: true %>

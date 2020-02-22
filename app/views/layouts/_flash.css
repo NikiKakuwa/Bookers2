@@ -1,0 +1,14 @@
+_flash.css
+
+.notice {
+	color: white;
+ 　　&__alert {
+
+ 		background-color: red;
+ 	}
+
+　　&__notice {
+	color: white;
+	background color: green;
+    }
+}
