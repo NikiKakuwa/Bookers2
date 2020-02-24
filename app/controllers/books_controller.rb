@@ -1,4 +1,7 @@
 class BooksController < ApplicationController
+
+  before_action :authenticate_user!
+
   def welcome
   end
 
@@ -24,7 +27,7 @@ class BooksController < ApplicationController
     if
       @book.save
       redirect_to book_path(@book)
-      flash[:success] = 'successfully posted!!!'
+      flash[:success] = 'New book created successfully!!!'
     else
       @books = Book.all
       @user = current_user #viewだけを表示するのがrenderだから、改めて@userを定義しなければいけない。redirect_toはindexのURLを読み込むからindexで定義されていれば@userをここで改めて定義する必要はない。redirect_toとrenderの違いをちゃんと理解している必要がある。

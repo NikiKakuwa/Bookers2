@@ -10,6 +10,8 @@
 	<%= @a_book.body %>
 </p>
 
+<% if @a_book.user_id == current_user.id %>
 <%= link_to "Edit", edit_book_path(@a_book) %>
 
 <%= link_to "Destroy", book_path(@a_book), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
