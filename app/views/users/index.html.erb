@@ -1,11 +1,11 @@
 
 <div class="profile-container">
 	User info
-	<%= attachment_image_tag @a_user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "" %>
-    <h3 class="profile-name"><%= @a_user.name %></h3>
+	<%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "" %>
+    <h3 class="profile-name"><%= @user.name %></h3>
     <%= @user.introduction %>
-　　 <% if @a_user.id == current_user.id %>
-        <p><%= link_to "プロフィール編集", edit_user_path(@a_user) %></p>
+　　 <% if @user.id == current_user.id %>
+        <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
     <% end %>
 </div>
 New
@@ -49,10 +49,6 @@ New
 		<% @users.each do |user| %>
 		<tr>
 			<td><%= attachment_image_tag user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "" %>
-				<%#= link_to user_path(book.user.id) do %>
-				<%#= attachment_image_tag @user, :profile_image %>
-				<%#= book.user.name %>
-				<%# end %>
 			</td>
 			<td><%= user.name %></td>
 			<td><%= link_to "Show", user_path(user) %></td>
