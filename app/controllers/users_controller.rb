@@ -15,12 +15,15 @@ class UsersController < ApplicationController
 
   def edit
     @a_user = User.find(params[:id])
+    if current_user != @a_user
+       redirect_to user_path(current_user)
+     end
   end
 
   def update
     @a_user = User.find(params[:id])
-    if
-      @a_user.update(user_params)
+    if @a_user.update(user_params)
+      flash[:success] = 'User info edited successfully!!!'
       redirect_to user_path(@a_user)
     else
       render action: :edit

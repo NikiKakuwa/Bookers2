@@ -1,14 +1,16 @@
 <%= flash[:success] %>
-Editing Book
+<h1>
+    Editing Book
+</h1>
 
-<%= form_for(@a_book) do |f| %>
-    <% if @a_book.errors.any? %>
+<%= form_for(@book) do |f| %>
+    <% if @book.errors.any? %>
     <h3>
-    <% @a_book.errors.count %>errors prohibited this book from being saved:
+    <% @book.errors.count %>errors prohibited this book from being saved:
     </h3>
 
 	<ul>
-	<% @a_book.errors.full_messages.each do |message| %>
+	<% @book.errors.full_messages.each do |message| %>
 	<li><%= message %></li>
 	<% end %>
     </ul>
@@ -25,6 +27,6 @@ Editing Book
 <% end %>
 
 
-<%= link_to "Show", book_path(@a_book) %>
+<%= link_to "Show", book_path(@book) %>
 
 <%= link_to "Back",  books_path %>
