@@ -1,24 +1,41 @@
-<div class="profile-container">
-	User info
-    <h3 class="profile-name"><%= @a_book.user.name %></h3>
-    <%= attachment_image_tag @a_book.user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "" %>
-    <%= @a_book.user.introduction %>
-     <% if @user.id == current_user.id %>
-        <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+<div class="container">
+<div class="row">
+<div class="col-xs-3">
+	<h2>User info</h2>
+    <%= attachment_image_tag @a_book.user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg", size:'100x100' %>
+
+    <table class="table">
+        <tr></tr>
+        <tr>
+            <th>name</th>
+            <th><%= @a_book.user.name %></th>
+        </tr>
+        <tr>
+            <th>introduction</th>
+            <th><%= @a_book.user.introduction %></th>
+        </tr>
+    </table>
+
+    <div class="row">
+    <% if @user.id == current_user.id %>
+        <%= link_to edit_user_path(@user) do %>
+        <span class="col-xs-12 btn btn-default glyphicon glyphicon-wrench"></span>
+        <% end %>
     <% end %>
 </div>
 
-New book
-<%= form_for(@book) do |f| %>
+
+<h2>New book</h2>
+    <%= form_for(@book) do |f| %>
     <% if @book.errors.any? %>
     <h3>
     <% @book.errors.count %>errors prohibited this book from being saved:
     </h3>
 
-	<ul>
-	<% @book.errors.full_messages.each do |message| %>
-	<li><%= message %></li>
-	<% end %>
+    <ul>
+    <% @book.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
     </ul>
     <% end %>
 
@@ -28,35 +45,41 @@ New book
     <h4>Opinion</h4>
     <%= f.text_area :body %>
 
-    <%= f.submit 'Create Book' %>
+    <%= f.submit 'Create Book' , class: "btn btn-primary col-xs-12" %>
 
-<% end %>
+    <% end %>
+</div>
 
+<div class="col-xs-9">
 
-Book detail
-<table>
+<h2>Book detail</h2>
+<table class="table table-hover table-inverse">
     <thead>
         <tr>
             <th></th>
-            <th>Title</th>
-            <th>Opinion</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td><%= link_to user_path(@a_book) do %>
-                <%= attachment_image_tag @a_book.user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "" %>
+            <td><%= link_to user_path(@a_book.user.id) do %>
+                <%= attachment_image_tag @a_book.user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg", size:'40x40' %>
                 <% end %>
                 <%= link_to @a_book.user.name, user_path(@a_book.user) %>
                 </td>
             <td><%= link_to @a_book.title, book_path(@a_book) %></td>
             <td><%= @a_book.body %></td>
+            <% if @a_book.user_id == current_user.id %>
+            <td><%= link_to "Edit", edit_book_path(@a_book) ,class: "btn-sm btn-success" %></td>
+            <td><%= link_to "Destroy", book_path(@a_book), method: :delete, data: { confirm: 'Are you sure?' } , class: "btn-sm btn-danger"%></td>
+            <% end %>
         </tr>
     </tbody>
 </table>
 
-<% if @a_book.user_id == current_user.id %>
-<%= link_to "Edit", edit_book_path(@a_book) %>
-
-<%= link_to "Destroy", book_path(@a_book), method: :delete, data: { confirm: 'Are you sure?' } %>
-<% end %>
+</div>
+</div>
+</div>

@@ -1,20 +1,31 @@
 
-<%= flash[:success] %>
+<div class="container">
+<div class="row">
+	<div class="col-xs-3">
+	<h2>User info</h2>
+    <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg", size:'100x100' %>
+    <table class="table">
+    	<tr></tr>
+    	<tr>
+    		<th>name</th>
+    		<th><%= @user.name %></th>
+    	</tr>
+    	<tr>
+    		<th>introduction</th>
+    		<th><%= @user.introduction %></th>
+    	</tr>
+    </table>
 
-
-
-<div class="profile-container">
-	User info
-    <h3 class="profile-name"><%= @user.name %></h3>
-    <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "" %>
-    <%= @user.introduction %>
-     <% if @user.id == current_user.id %>
-        <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+    <div class="row">
+    <% if @user.id == current_user.id %>
+        <%= link_to edit_user_path(@user) do %>
+        <span class="col-xs-12 btn btn-default glyphicon glyphicon-wrench"></span>
+        <% end %>
     <% end %>
-</div>
+    </div>
 
-New book
-<%= form_for(@book) do |f| %>
+    <h2>New book</h2>
+    <%= form_for(@book) do |f| %>
     <% if @book.errors.any? %>
     <h3>
     <% @book.errors.count %>errors prohibited this book from being saved:
@@ -33,12 +44,16 @@ New book
     <h4>Opinion</h4>
     <%= f.text_area :body %>
 
-    <%= f.submit 'Create Book' %>
+    <%= f.submit 'Create Book' , class: "btn btn-primary col-xs-12" %>
 
-<% end %>
+    <% end %>
 
-<h1>Books</h1>
-<table>
+    </div>
+
+    <div class="col-xs-9">
+
+<h2>Books</h2>
+<table class="table table-hover table-inverse">
 	<thead>
 		<tr>
 			<th></th>
@@ -50,7 +65,7 @@ New book
 		<% @books.each do |book| %>
 		<tr>
 			<td><%= link_to user_path(book.user) do %>
-				<%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "" %>
+				<%= attachment_image_tag book.user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg", size:'40x40' %>
 				<% end %>
 				</td>
 			<td><%= link_to book.title, book_path(book) %></td>
@@ -59,3 +74,6 @@ New book
 		<% end %>
 	</tbody>
 </table>
+</div>
+</div>
+</div>
