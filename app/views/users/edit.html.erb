@@ -18,10 +18,9 @@
         </div>
         <div class="field">
         Image
-        <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "" %>
+        <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
         <label class="control-label sr-only" for="inputEmail">
-
-        ProfileImage</label>
+        ProfileImage
         <%= f.attachment_field :profile_image %>
         </div>
         <div class="field">

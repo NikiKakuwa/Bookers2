@@ -1,29 +1,31 @@
 class BooksController < ApplicationController
 
-  before_action :authenticate_user!,except:[:welcome]
+  before_action :authenticate_user! , except:[:welcome] #「ログイン認証されていなければ、ログイン画面へリダイレクトする」という機能を実装。:authenticate_userはdeviseのメソッド
 
   def welcome
   end
 
   def index
-      @user = current_user
-      @book = Book.new
-      @books = Book.all
-    end
+    @user = current_user
+    @book = Book.new
+    @books = Book.all
+  end
 
   def show
     @user = current_user
     @a_book = Book.find(params[:id])
     @book = Book.new
+    @book_comment = BookComment.new
   end
 
   def new
-  	@book = Book.new
+    @book = Book.new
   end
 
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
+    binding.pry
     if @book.save
       flash[:success] = 'New book created successfully!!!'
       redirect_to book_path(@book)
