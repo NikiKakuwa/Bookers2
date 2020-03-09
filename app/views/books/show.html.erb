@@ -61,6 +61,7 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -76,6 +77,20 @@
             <td><%= link_to "Edit", edit_book_path(@a_book) ,class: "btn-sm btn-success" %></td>
             <td><%= link_to "Destroy", book_path(@a_book), method: :delete, data: { confirm: 'Are you sure?' } , class: "btn-sm btn-danger"%></td>
             <% end %>
+            <td>
+            <% if @a_book.favorited_by?(current_user) %>
+                <%= link_to book_favorites_path(@a_book), method: :delete do %>
+                <%# <i class="fa fas-heart" aria-hidden="true" style="color: red;"></i> %>
+                <%= fa_icon "heart", :style=>"color:red;" %>
+                <% end %>
+            <% else %>
+                <%= link_to book_favorites_path(@a_book), method: :post do %>
+                <%# <i class="fa far-heart></i> %>
+                <%= fa_icon "heart-o", :style=>"color:red;" %>
+                <% end %>
+            <% end %>
+            <h6><%= @a_book.favorites.count %>件お気に入り</h6>
+            </td>
         </tr>
     </tbody>
 </table>
@@ -88,17 +103,21 @@
             <th>user</th>
             <th>date</th>
             <th>comment</th>
+            <th>delete</th>
         </tr>
     </thead>
     <tbody>
         <tr>
         <% @a_book.book_comments.each do |book_comment| %>
             <td>
-            <%= image_tag('no_image.jpg', style: "width: 60px; height: 60px;") %><br>
+            <%= attachment_image_tag @a_book.user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg", size:'40x40' %><br>
             <%= book_comment.user.name %>
             </td>
             <td><%= book_comment.created_at.strftime('%Y/%m/%d') %></td>
             <td><%= book_comment.comment %></td>
+            <td>
+            <%= link_to "Delete", book_book_comment_path(@a_book.id, book_comment.id), method: :delete, data: { confirm: 'Are you sure?' } , class: "btn-sm btn-danger"%>
+            </td>
         <% end %>
         </tr>
     </tbody>
