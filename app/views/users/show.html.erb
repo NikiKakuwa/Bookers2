@@ -57,6 +57,7 @@
 			<th></th>
 			<th>Title</th>
 			<th>Opinion</th>
+		    <th>Comments</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -68,6 +69,10 @@
 				</td>
 			<td><%= link_to book.title, book_path(book) %></td>
 			<td><%= book.body %></td>
+			<td><h6>
+			<%# <% book.book_commnets.count   %>
+			<%# ↑これだとbook_commentsがunidentified methodになる。なぜ？ %>
+			<%= link_to "#{book.book_comments.count} コメント", book_path(book.id) %></h6></td>
 		</tr>
 		<% end %>
 	</tbody>
