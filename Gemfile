@@ -68,3 +68,8 @@ gem "refile-mini_magick"
 
 gem 'pry-byebug'
 gem 'font-awesome-rails'
+
+gem 'dotenv-rails'
+group :production do
+  gem 'mysql2'
+end
